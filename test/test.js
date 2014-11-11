@@ -6,7 +6,7 @@ var pkg = require('../package.json');
 var test = require('tape');
 
 test('tinyNpmLicense()', function(t) {
-  t.plan(5);
+  t.plan(7);
 
   var tinyNpmLicense = require('../');
 
@@ -54,6 +54,14 @@ test('tinyNpmLicense()', function(t) {
   t.throws(function() {
     tinyNpmLicense({name: ' foo'}, {strict: true});
   }, /Invalid name/, 'should validate the data using `strict` option.');
+
+  t.throws(function() {
+    tinyNpmLicense(true);
+  }, /be an object/, 'should throw a type error when the first argument is not an object.');
+
+  t.throws(function() {
+    tinyNpmLicense();
+  }, /More than one argument/, 'should throw a type error when it takes no arguments.');
 });
 
 test('"tiny-npm-license" command', function(t) {
